@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        /* --- မူလ CSS များ --- */
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            min-height: 100vh; /* height ကို min-height သို့ပြောင်း */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Nunito', sans-serif;
+            /* overflow: hidden;  <- Scroll လုပ်လို့ရအောင် ဒါကို ခဏပိတ်ထားမယ် */
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95); /* နောက်ခံကို ပိုလင်းအောင်လုပ် */
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            position: relative;
+            margin: 20px 0; /* အပေါ်အောက် margin နည်းနည်းထည့် */
+        }
+
+        h1, h2 {
+            color: #ff4d6d;
+            font-family: 'Pacifico', cursive;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+
+        /* ပုံမှန်ပုံများအတွက် */
+        .main-img {
+            max-width: 100%;
+            max-height: 200px; /* ပုံတွေ အရမ်းမကြီးအောင် ထိန်း */
+            border-radius: 15px;
+            margin-bottom: 15px;
+            object-fit: contain;
+        }
+
+        .btn {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            width: 80%; /* ခလုတ်အကျယ် */
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #e33e5c;
+        }
+
+        /* Screen Visibility Logic */
+        .screen {
+            display: none;
+            animation: fadeIn 0.8s;
+        }
+        
+        .active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Screen 1: Music Player Style */
+        .music-player {
+            background: #fff0f3;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        .controls {
+            font-size: 24px;
+            color: #ff4d6d;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        /* Screen 2: Reasons List */
+        .reason-item {
+            background: #ffe5ec;
+            color: #d63384;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 12px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-size: 15px;
+        }
+
+        /* Screen 3: Yes/No Buttons */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .btn-group .btn {
+            width: auto; /* Yes/No ခလုတ်တွေကို width အပြည့်မယူစေရန် */
+            padding: 10px 30px;
+        }
+        #noBtn {
+            background-color: #ffb3c1;
+            position: relative; 
+            z-index: 10; /* အခြား layer တွေအပေါ်မှာ ရှိနေစေရန် */
+        }
+
+        /* --- Screen 5 အတွက် အသစ်ထပ်ထည့်သော CSS (Photo Gallery) --- */
+        .gallery-container {
+            display: flex;
+            overflow-x: auto; /* ဘေးတိုက် scroll လုပ်လို့ရအောင် */
+            gap: 12px; /* ပုံတစ်ပုံနဲ့တစ်ပုံကြား အကွာအဝေး */
+            padding: 15px 5px;
+            scroll-behavior: smooth;
+            /* Scrollbar ဖျောက်ခြင်း (Optional) */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE 10+ */
+        }
+        /* Chrome, Safari, Opera အတွက် scrollbar ဖျောက် */
+        .gallery-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-img {
+            width: 110px;  /* ပုံအကျယ် */
+            height: 110px; /* ပုံအမြင့် (စတုရန်းပုံဖြစ်အောင် တူအောင်ထား) */
+            object-fit: cover; /* ပုံမပျက်အောင် fit လုပ် */
+            border-radius: 12px;
+            border: 3px solid #ffc2d1; /* ပန်းရောင် ဘောင်လေးခတ် */
+            flex-shrink: 0; /* ပုံတွေ ကျဉ်းမသွားအောင် */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .gallery-img:hover {
+             transform: scale(1.08); /* ကွန်ပျူတာတွင် mouse တင်ရင် ပုံနည်းနည်းကြီး */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div id="screen1" class="screen active">
+            <h1>Happy Valentine's Day</h1>
+            <img class="main-img" src="https://i.pinimg.com/originals/7e/bd/71/7ebd71142a47c65e890af6471812fa88.gif" alt="Couple">
+            
+            <div class="music-player">
+                <p>🎶 I Love You 3000 - Iron Man</p>
+                <div class="controls">
+                    <span>⏮️</span>
+                    <span>▶️</span>
+                    <span>⏭️</span>
+                </div>
+            </div>
+            <p>For today, tomorrow, and always ❤️</p>
+            <button class="btn" onclick="nextScreen(2)">Start Surprise ✨</button>
+        </div>
+
+        <div id="screen2" class="screen">
+            <h1>Reasons Why I Love You 💞</h1>
+            <p style="margin-bottom: 20px;">Just a few reasons...</p>
+            
+            <div class="reason-item">💖 Your beautiful smile</div>
+            <div class="reason-item">🌸 Your kindness and care</div>
+            <div class="reason-item">🤗 You understand me deeply</div>
+            <div class="reason-item">🏠 You're my safe place</div>
+            <div class="reason-item">✨ You make life magical</div>
+
+            <button class="btn" onclick="nextScreen(3)">One more thing... 👉</button>
+        </div>
+
+        <div id="screen3" class="screen">
+            <img class="main-img" src="https://media.giphy.com/media/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute Bear">
+            
+            <h2>Will you be my Valentine? 💌</h2>
+            <p>Think carefully 😉</p>
+
+            <div class="btn-group">
+                <button class="btn" onclick="nextScreen(4)">Yes 💘</button>
+                <button class="btn" id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton()">No 😝</button>
+            </div>
+        </div>
+
+        <div id="screen4" class="screen">
+            <img class="main-img" src="https://i.pinimg.com/originals/2c/e5/a1/2ce5a158949c38259edbc0f2d0db6321.gif" alt="Excited Cat">
+            
+            <h2 style="color: #ff0055; font-size: 26px;">I knew you'd say YES 😍</h2>
+            <p style="margin-top: 20px;">You don't even realize how special you are to me 💫</p>
+            <p>My world feels warmer, brighter, and happier because of you ❤️</p>
+            
+            <button class="btn" onclick="nextScreen(5)">See My Promise 🌹</button>
+        </div>
+
+        <div id="screen5" class="screen">
+            <h1>My Valentine Promise 💍</h1>
+            <p>Here are our sweet memories...</p>
+
+            <div class="gallery-container">
+                <img src="https://via.placeholder.com/150/ffb3c1/ffffff?text=Photo+1" alt="Memory 1" class="gallery-img">
+                <img src="https://via.placeholder.com/150/ff4d6d/ffffff?text=Photo+2" alt="Memory 2" class="gallery-img">
+                <img src="https://via.placeholder.com/150/ff9a9e/ffffff?text=Photo+3" alt="Memory 3" class="gallery-img">
+                <img src="https://via.placeholder.com/150/fecfef/ff4d6d?text=Photo+4" alt="Memory 4" class="gallery-img">
+                <img src="https://via.placeholder.com/150/ffc2d1/ffffff?text=Photo+5" alt="Memory 5" class="gallery-img">
+            </div>
+            <div style="margin-top: 25px;">
+                <p>I promise to care for you, make you smile, and love you more with every heartbeat. ❤️</p>
+            </div>
+            
+            <button class="btn" onclick="alert('Happy Valentines Day! I Love You So Much! ❤️❤️❤️')">Final Surprise 🎁</button>
+        </div>
+
+    </div>
+
+    <script>
+        // Function to Switch Screens
+        function nextScreen(screenNumber) {
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => {
+                screen.classList.remove('active');
+            });
+
+            const activeScreen = document.getElementById('screen' + screenNumber);
+            if (activeScreen) {
+                activeScreen.classList.add('active');
+            }
+        }
+
+        // Function to make the "No" button run away (Improved for mobile)
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            // ကွန်ပျူတာ/ဖုန်း screen အကျယ်အဝန်းကို တွက်ချက်ခြင်း
+            const maxWidth = window.innerWidth - noBtn.offsetWidth - 20;
+            const maxHeight = window.innerHeight - noBtn.offsetHeight - 20;
+
+            const x = Math.random() * maxWidth;
+            const y = Math.random() * maxHeight;
+            
+            noBtn.style.position = 'fixed'; 
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        }
+    </script>
+</body>
+</html>
