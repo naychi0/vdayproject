@@ -11,16 +11,16 @@
             margin: 0;
             padding: 0;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-            min-height: 100vh; /* height ကို min-height သို့ပြောင်း */
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: 'Nunito', sans-serif;
-            /* overflow: hidden;  <- Scroll လုပ်လို့ရအောင် ဒါကို ခဏပိတ်ထားမယ် */
+            overflow-x: hidden; /* ဘေးတိုက် scroll မဖြစ်အောင် */
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95); /* နောက်ခံကို ပိုလင်းအောင်လုပ် */
+            background: rgba(255, 255, 255, 0.95);
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
@@ -28,7 +28,8 @@
             max-width: 350px;
             width: 90%;
             position: relative;
-            margin: 20px 0; /* အပေါ်အောက် margin နည်းနည်းထည့် */
+            margin: 20px 0;
+            z-index: 10; /* နှလုံးသားတွေအပေါ်မှာ ရှိနေစေရန် */
         }
 
         h1, h2 {
@@ -47,7 +48,7 @@
         /* ပုံမှန်ပုံများအတွက် */
         .main-img {
             max-width: 100%;
-            max-height: 200px; /* ပုံတွေ အရမ်းမကြီးအောင် ထိန်း */
+            max-height: 200px;
             border-radius: 15px;
             margin-bottom: 15px;
             object-fit: contain;
@@ -65,7 +66,7 @@
             margin-top: 20px;
             font-family: 'Nunito', sans-serif;
             font-weight: bold;
-            width: 80%; /* ခလုတ်အကျယ် */
+            width: 80%;
         }
 
         .btn:hover {
@@ -124,49 +125,109 @@
             margin-top: 20px;
         }
         .btn-group .btn {
-            width: auto; /* Yes/No ခလုတ်တွေကို width အပြည့်မယူစေရန် */
+            width: auto;
             padding: 10px 30px;
         }
         #noBtn {
             background-color: #ffb3c1;
             position: relative; 
-            z-index: 10; /* အခြား layer တွေအပေါ်မှာ ရှိနေစေရန် */
+            z-index: 100; /* No ခလုတ်ကို အပေါ်ဆုံးမှာ ထားမယ် */
         }
 
-        /* --- Screen 5 အတွက် အသစ်ထပ်ထည့်သော CSS (Photo Gallery) --- */
+        /* --- Screen 5: Photo Gallery CSS --- */
         .gallery-container {
             display: flex;
-            overflow-x: auto; /* ဘေးတိုက် scroll လုပ်လို့ရအောင် */
-            gap: 12px; /* ပုံတစ်ပုံနဲ့တစ်ပုံကြား အကွာအဝေး */
+            overflow-x: auto;
+            gap: 12px;
             padding: 15px 5px;
             scroll-behavior: smooth;
-            /* Scrollbar ဖျောက်ခြင်း (Optional) */
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none;  /* IE 10+ */
+            scrollbar-width: none;
         }
-        /* Chrome, Safari, Opera အတွက် scrollbar ဖျောက် */
         .gallery-container::-webkit-scrollbar {
             display: none;
         }
 
         .gallery-img {
-            width: 110px;  /* ပုံအကျယ် */
-            height: 110px; /* ပုံအမြင့် (စတုရန်းပုံဖြစ်အောင် တူအောင်ထား) */
-            object-fit: cover; /* ပုံမပျက်အောင် fit လုပ် */
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
             border-radius: 12px;
-            border: 3px solid #ffc2d1; /* ပန်းရောင် ဘောင်လေးခတ် */
-            flex-shrink: 0; /* ပုံတွေ ကျဉ်းမသွားအောင် */
+            border: 3px solid #ffc2d1;
+            flex-shrink: 0;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: transform 0.3s;
         }
 
         .gallery-img:hover {
-             transform: scale(1.08); /* ကွန်ပျူတာတွင် mouse တင်ရင် ပုံနည်းနည်းကြီး */
+             transform: scale(1.08);
+        }
+
+        /* --- Screen 6: Floating Photo Animation CSS (အရင်အဖြေမှ) --- */
+        .floating-bg {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+            overflow: hidden;
+            background: rgba(255, 240, 243, 0.5);
+            border-radius: 15px;
+        }
+
+        .float-photo {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            animation: floatUp 6s infinite ease-in-out;
+            bottom: -100px; /* စစချင်းမှာ အောက်ဖျောက်ထားမယ် */
+        }
+
+        .p1 { left: 10%; animation-delay: 0s; }
+        .p2 { left: 30%; animation-delay: 1.5s; width: 60px; height: 60px; }
+        .p3 { left: 50%; animation-delay: 3s; }
+        .p4 { left: 70%; animation-delay: 0.5s; width: 70px; height: 70px; }
+        .p5 { left: 85%; animation-delay: 2s; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(-350px) rotate(20deg); opacity: 0; }
+        }
+
+        /* --- NEW: Hearts Rain Effect CSS --- */
+        #hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* နှလုံးသားတွေကို ကလစ်လို့မရအောင် */
+            z-index: 1; /* container ရဲ့ နောက်မှာ နေမယ် */
+            overflow: hidden;
+        }
+
+        .falling-heart {
+            position: absolute;
+            top: -5%;
+            font-size: 20px;
+            opacity: 0.8;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg); /* မျက်နှာပြင်အောက် ကျော်သွားသည်အထိ */
+            }
         }
 
     </style>
 </head>
 <body>
+
+    <div id="hearts-container"></div>
 
     <div class="container">
         
@@ -235,7 +296,7 @@
              <p style="margin-top:20px;">I promise to love you more everyday! ❤️</p>
             <button class="btn" onclick="nextScreen(6)">One Last Surprise ✨</button>
         </div>
-             <div id="screen6" class="screen">
+            <div id="screen6" class="screen">
             <h1>Our Love Is In The Air ☁️💖</h1>
             <p>Watching our memories float forever...</p>
 
@@ -250,11 +311,12 @@
                 <p>I promise to care for you, make you smile, and love you more with every heartbeat. ❤️</p>
             </div>
             
-            <button class="btn" onclick="alert('Because of you,MgMg, my life is so colourful.From the moment you walked into my life, every flowers became bloom and I’ve felt truly loved. Thank you for being by my side, MgMg 🩵')">Final Surprise 🎁</button>
+            <button class="btn" onclick="alert('Because of you, MgMg, my life is so colourful. From the moment you walked into my life, every flower bloomed and I’ve felt truly loved. Thank you for being by my side, MgMg 🩵')">Final Surprise 🎁</button>
         </div>
 
     </div>
     <script>
+        // --- Screen Navigation Logic ---
         function nextScreen(screenNumber) {
             const screens = document.querySelectorAll('.screen');
             screens.forEach(screen => screen.classList.remove('active'));
@@ -263,16 +325,52 @@
             if (activeScreen) activeScreen.classList.add('active');
         }
 
+        // --- "No" Button Moving Logic ---
         function moveButton() {
             const noBtn = document.getElementById('noBtn');
-            const maxWidth = window.innerWidth - noBtn.offsetWidth - 20;
-            const maxHeight = window.innerHeight - noBtn.offsetHeight - 20;
-            const x = Math.random() * maxWidth;
-            const y = Math.random() * maxHeight;
+            // မျက်နှာပြင်အပြည့် မပြေးဘဲ container ဘေးနားတဝိုက်ပဲ ပြေးအောင် ပြင်ထားခြင်း
+            const maxWidth = window.innerWidth - noBtn.offsetWidth - 50;
+            const maxHeight = window.innerHeight - noBtn.offsetHeight - 50;
+            
+            // အလယ်နားတဝိုက်မှာပဲ random ဖြစ်အောင်
+            const x = Math.random() * (maxWidth - 50) + 25;
+            const y = Math.random() * (maxHeight - 50) + 25;
+
             noBtn.style.position = 'fixed'; 
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
         }
+
+        // --- NEW: Hearts Rain Effect Logic ---
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            
+            // နှလုံးသားပုံစံ အမျိုးမျိုး (Emoji သုံးထားသည်)
+            const heartTypes = ['❤️', '💖', '💘', '💝', '💕'];
+            heart.innerText = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+            
+            // ကျလာမည့် နေရာ (ဘယ်/ညာ) Random သတ်မှတ်ခြင်း
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            // ကျလာမည့် အမြန်နှုန်း Random သတ်မှတ်ခြင်း (2s မှ 5s ကြား)
+            const duration = Math.random() * 3 + 2;
+            heart.style.animationDuration = duration + 's';
+            
+            // အရွယ်အစား Random သတ်မှတ်ခြင်း
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+
+            document.getElementById('hearts-container').appendChild(heart);
+
+            // မျက်နှာပြင်အောက် ရောက်သွားတဲ့ နှလုံးသားတွေကို ပြန်ဖျက်ခြင်း (Memory ပြည့်မသွားအောင်)
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // ၃၀၀ မီလီစက္ကန့်တိုင်း နှလုံးသားအသစ်တစ်ခု ဖန်တီးမယ်
+        setInterval(createHeart, 300);
+
     </script>
 </body>
 </html>
