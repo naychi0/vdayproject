@@ -235,7 +235,7 @@
              <p style="margin-top:20px;">I promise to love you more everyday! ❤️</p>
             <button class="btn" onclick="nextScreen(6)">One Last Surprise ✨</button>
         </div>
-            <div id="screen6" class="screen">
+             <div id="screen6" class="screen">
             <h1>Our Love Is In The Air ☁️💖</h1>
             <p>Watching our memories float forever...</p>
 
@@ -246,7 +246,7 @@
                 <img src="photo4.jpg.jpg" class="float-photo p4">
                 <img src="photo5.jpg.jpg" class="float-photo p5">
             </div>
-           <div style="margin-top: 25px;">
+            <div style="margin-top: 25px;">
                 <p>I promise to care for you, make you smile, and love you more with every heartbeat. ❤️</p>
             </div>
             
@@ -254,41 +254,25 @@
         </div>
 
     </div>
-
     <script>
-        // Function to Switch Screens
         function nextScreen(screenNumber) {
             const screens = document.querySelectorAll('.screen');
-            screens.forEach(screen => {
-                screen.classList.remove('active');
-            });
-
+            screens.forEach(screen => screen.classList.remove('active'));
+            
             const activeScreen = document.getElementById('screen' + screenNumber);
-            if (activeScreen) {
-                activeScreen.classList.add('active');
-            }
+            if (activeScreen) activeScreen.classList.add('active');
         }
 
-        // Function to make the "No" button run away (Improved for mobile)
         function moveButton() {
             const noBtn = document.getElementById('noBtn');
-            // ကွန်ပျူတာ/ဖုန်း screen အကျယ်အဝန်းကို တွက်ချက်ခြင်း
             const maxWidth = window.innerWidth - noBtn.offsetWidth - 20;
             const maxHeight = window.innerHeight - noBtn.offsetHeight - 20;
-
             const x = Math.random() * maxWidth;
             const y = Math.random() * maxHeight;
-            
             noBtn.style.position = 'fixed'; 
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
         }
     </script>
 </body>
-
 </html>
-
-
-
-
-
