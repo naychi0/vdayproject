@@ -197,6 +197,61 @@
             100% { transform: translateY(-350px) rotate(20deg); opacity: 0; }
         }
 
+          /* --- Screen 7: 3D Embossed & Moving Circle CSS --- */
+.carousel-3d {
+    perspective: 1000px; /* 3D အနက်ပုံစံ ခံစားရအောင် */
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.spinner {
+    width: 120px;
+    height: 150px;
+    position: relative;
+    transform-style: preserve-3d; /* 3D ပုံစံကို ထိန်းသိမ်းရန် */
+    animation: rotateSpinner 15s infinite linear; /* အမြဲတမ်း လည်နေစေရန် */
+}
+
+.card-3d {
+    position: absolute;
+    width: 120px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 15px;
+    
+    /* 3D Embossed (ဖောင်းကြွ) ဒီဇိုင်း */
+    border: 4px solid #fff0f3;
+    box-shadow: 
+        8px 8px 15px rgba(0, 0, 0, 0.2), 
+        -4px -4px 10px rgba(255, 255, 255, 0.8),
+        inset 2px 2px 5px rgba(0,0,0,0.1);
+    
+    transition: transform 0.5s;
+}
+
+/* ဓာတ်ပုံ ၅ ပုံကို စက်ဝိုင်းပုံစံ နေရာချခြင်း */
+/* တစ်ပုံနဲ့ တစ်ပုံ ၇၂ ဒီဂရီစီ (360/5) ခြားထားပါတယ် */
+.spinner img:nth-child(1) { transform: rotateY(0deg) translateZ(150px); }
+.spinner img:nth-child(2) { transform: rotateY(72deg) translateZ(150px); }
+.spinner img:nth-child(3) { transform: rotateY(144deg) translateZ(150px); }
+.spinner img:nth-child(4) { transform: rotateY(216deg) translateZ(150px); }
+.spinner img:nth-child(5) { transform: rotateY(288deg) translateZ(150px); }
+
+/* လည်ပတ်မည့် Animation */
+@keyframes rotateSpinner {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
+/* Mouse တင်ရင် ခဏရပ်သွားအောင် (Optional) */
+.spinner:hover {
+    animation-play-state: paused;
+    cursor: pointer;
+}
+
         /* --- NEW: Hearts Rain Effect CSS --- */
         #hearts-container {
             position: fixed;
@@ -306,13 +361,36 @@
                 <img src="photo3.jpg.jpg" class="float-photo p3">
                 <img src="photo4.jpg.jpg" class="float-photo p4">
                 <img src="photo5.jpg.jpg" class="float-photo p5">
+                <img src="photo6.jpg.jpg" class="float-photo p6">
+                <img src="photo7.jpg.jpg" class="float-photo p7">
+                <img src="photo8.jpg.jpg" class="float-photo p8">
             </div>
             <div style="margin-top: 25px;">
                 <p>I promise to care for you, make you smile, and love you more with every heartbeat. ❤️</p>
             </div>
+
+            <button class="btn" onclick="nextScreen(7)">Next Magic ✨</button>
             
-            <button class="btn" onclick="alert('Because of you, MgMg, my life is so colourful. From the moment you walked into my life, every flower bloomed and I’ve felt truly loved. Thank you for being by my side, MgMg 🩵')">Final Surprise 🎁</button>
         </div>
+
+        <div id="screen7" class="screen">
+    <h1>Our 3D Memories 🎡</h1>
+    <p>လှည့်ပတ်နေတဲ့ တို့ရဲ့ ကမ္ဘာလေး...</p>
+
+    <div class="carousel-3d">
+        <div class="spinner">
+            <img src="photo11.jpg" class="card-3d">
+            <img src="photo12jpg" class="card-3d">
+            <img src="photo13jpg" class="card-3d">
+            <img src="photo6.jpg" class="card-3d">
+            <img src="photo7.jpg" class="card-3d">
+        </div>
+    </div>
+
+    <div style="margin-top: 150px;"> <p>အမြဲတမ်း လက်တွဲသွားမယ်နော်... ❤️</p>
+        <button class="btn" onclick="alert('Because of you, MgMg, my life is so colourful. From the moment you walked into my life, every flower bloomed. 🩵')">Final Surprise 🎁</button>
+    </div>
+</div>
 
     </div>
     <script>
@@ -374,3 +452,4 @@
     </script>
 </body>
 </html>
+
